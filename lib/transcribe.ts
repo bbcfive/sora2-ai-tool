@@ -132,19 +132,28 @@ export async function transcribeAudio(file: FileLike | null, provider: Provider)
       throw new Error(transcript.error || 'AssemblyAI transcription failed');
     }
 
-    const segments = (transcript.sentences ?? []).map((sentence, index) => ({
-      id: sentence.id ?? String(index),
-      startMs: Math.max(0, sentence.start ?? 0),
-      endMs: Math.max((sentence.end ?? sentence.start ?? 0) + 10, sentence.start ?? 0),
-      text: sentence.text?.trim() ?? ''
-    })).filter((segment) => segment.text.length > 0);
+    const rawSentences = Array.isArray((transcript as { sentences?: unknown }).sentences)
+      ? ((transcript as { sentences: Array<{ id?: string; start?: number; end?: number; text?: string }> }).sentences)
+      : [];
 
-    const text = transcript.text?.trim() ?? segments.map((segment) => segment.text).join(' ');
+    const segments = rawSentences
+      .map((sentence, index) => ({
+        id: sentence.id ?? String(index),
+        startMs: Math.max(0, sentence.start ?? 0),
+        endMs: Math.max((sentence.end ?? sentence.start ?? 0) + 10, sentence.start ?? 0),
+        text: sentence.text?.trim() ?? ''
+      }))
+      .filter((segment) => segment.text.length > 0);
+
+    const text =
+      typeof transcript.text === 'string' && transcript.text.trim().length > 0
+        ? transcript.text.trim()
+        : segments.map((segment) => segment.text).join(' ');
 
     return {
       provider,
       text,
-      language: transcript.language_code,
+      language: (transcript as { language_code?: string }).language_code,
       segments: segments.length ? segments : buildSegmentsFromText(text)
     };
   }
