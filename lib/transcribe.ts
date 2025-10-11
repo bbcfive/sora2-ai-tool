@@ -132,8 +132,9 @@ export async function transcribeAudio(file: FileLike | null, provider: Provider)
       throw new Error(transcript.error || 'AssemblyAI transcription failed');
     }
 
-    const rawSentences = Array.isArray((transcript as { sentences?: unknown }).sentences)
-      ? ((transcript as { sentences: Array<{ id?: string; start?: number; end?: number; text?: string }> }).sentences)
+    const sentencesValue = (transcript as unknown as { sentences?: unknown }).sentences;
+    const rawSentences = Array.isArray(sentencesValue)
+      ? (sentencesValue as Array<{ id?: string; start?: number; end?: number; text?: string }>)
       : [];
 
     const segments = rawSentences
