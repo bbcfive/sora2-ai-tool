@@ -1,5 +1,3 @@
-import { createFFmpeg, FFmpeg } from '@ffmpeg/ffmpeg';
-
 type VideoJob = 'extract-audio' | 'burn-subtitles' | 'thumbnail';
 
 type VideoPayload = {
@@ -12,28 +10,14 @@ export type VideoResult = {
   details: string;
 };
 
-let ffmpegInstance: FFmpeg | null = null;
-
-async function getFfmpeg() {
-  if (!ffmpegInstance) {
-    ffmpegInstance = createFFmpeg({ log: true });
-  }
-  return ffmpegInstance;
-}
-
 export async function runVideoJob({ sourceUrl, job }: VideoPayload): Promise<VideoResult> {
   if (!sourceUrl) {
     throw new Error('sourceUrl is required');
   }
 
-  const ffmpeg = await getFfmpeg();
-  if (!ffmpeg.isLoaded()) {
-    // Skip the actual download in the starter to avoid large wasm fetches without configuration.
-    // Hook up `await ffmpeg.load()` when you supply a custom corePath or host the binaries yourself.
-  }
-
   return {
     job,
-    details: `ffmpeg.wasm ready to process ${job} for ${sourceUrl}. Implement command pipeline in lib/video.ts.`
+    details:
+      'Video processing pipeline未启用。请在后端接入 ffmpeg 或第三方转码服务后，在 lib/video.ts 中补充实现。当前仅返回占位信息。'
   };
 }

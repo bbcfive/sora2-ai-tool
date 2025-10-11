@@ -1,0 +1,13 @@
+<svg width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="360" rx="32" fill="#0B1120" />
+  <rect x="60" y="56" width="168" height="248" rx="28" fill="#1F2937" />
+  <rect x="94" y="96" width="100" height="100" rx="20" fill="#38BDF8" opacity="0.8" />
+  <rect x="260" y="72" width="320" height="52" rx="16" fill="#334155" />
+  <rect x="260" y="142" width="260" height="18" rx="9" fill="#CBD5F5" opacity="0.8" />
+  <rect x="260" y="170" width="180" height="16" rx="8" fill="#CBD5F5" opacity="0.6" />
+  <rect x="260" y="198" width="220" height="16" rx="8" fill="#CBD5F5" opacity="0.4" />
+  <rect x="260" y="236" width="120" height="38" rx="19" fill="#22D3EE" opacity="0.8" />
+  <rect x="260" y="288" width="160" height="16" rx="8" fill="#38BDF8" opacity="0.4" />
+  <text x="260" y="104" fill="#F8FAFC" font-family="'Inter', 'Helvetica', 'Arial', sans-serif" font-size="20" font-weight="600">短视频字幕 &amp; 文案</text>
+  <text x="260" y="320" fill="#94A3B8" font-family="'Inter', 'Helvetica', 'Arial', sans-serif" font-size="16">一条视频输出多份平台话术</text>
+</svg>

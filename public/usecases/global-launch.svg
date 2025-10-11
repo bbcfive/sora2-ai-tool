@@ -1,0 +1,17 @@
+<svg width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="360" rx="32" fill="#0B1224" />
+  <rect x="48" y="48" width="544" height="192" rx="24" fill="#0F172A" />
+  <rect x="72" y="76" width="120" height="120" rx="18" fill="#1E293B" />
+  <path d="M108 120L132 144L108 168" stroke="#38BDF8" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+  <rect x="220" y="82" width="304" height="20" rx="10" fill="#38BDF8" opacity="0.8" />
+  <rect x="220" y="118" width="260" height="14" rx="7" fill="#CBD5F5" opacity="0.8" />
+  <rect x="220" y="144" width="240" height="14" rx="7" fill="#CBD5F5" opacity="0.6" />
+  <rect x="220" y="180" width="220" height="14" rx="7" fill="#CBD5F5" opacity="0.4" />
+  <rect x="48" y="260" width="544" height="52" rx="20" fill="#131F37" />
+  <circle cx="112" cy="286" r="10" fill="#38BDF8" />
+  <circle cx="154" cy="286" r="10" fill="#22D3EE" />
+  <circle cx="196" cy="286" r="10" fill="#A855F7" />
+  <text x="236" y="294" fill="#F1F5F9" font-family="'Inter', 'Helvetica', 'Arial', sans-serif" font-size="16" font-weight="600">
+    多语言字幕包 · 同步出海
+  </text>
+</svg>

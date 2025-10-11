@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server';
 import { transcribeAudio } from '@/lib/transcribe';
+import { segmentsToSrt, segmentsToVtt } from '@/lib/subtitles';
 import type { JsonResponse } from '@/lib/types';
 
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+export const maxDuration = 300;
 
 export async function POST(request: Request) {
   const providerParam = new URL(request.url).searchParams.get('provider');
@@ -13,9 +16,17 @@ export async function POST(request: Request) {
 
   try {
     const transcription = await transcribeAudio(file, provider);
-    const payload: JsonResponse<typeof transcription> = {
+    const srt = segmentsToSrt(transcription.segments);
+    const vtt = segmentsToVtt(transcription.segments);
+    const result = {
+      ...transcription,
+      srt,
+      vtt
+    };
+
+    const payload: JsonResponse<typeof result> = {
       success: true,
-      data: transcription
+      data: result
     };
     return NextResponse.json(payload);
   } catch (error) {
