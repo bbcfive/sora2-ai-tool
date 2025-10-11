@@ -109,7 +109,10 @@ export async function transcribeAudio(file: FileLike | null, provider: Provider)
 
     const client = new AssemblyAI({ apiKey: requireEnv('assemblyAiKey') });
     const uploadResponse = await client.files.upload(buffer);
-    const audioUrl = typeof uploadResponse === 'string' ? uploadResponse : uploadResponse?.upload_url;
+    const audioUrl =
+      typeof uploadResponse === 'string'
+        ? uploadResponse
+        : (uploadResponse as { upload_url?: string } | null | undefined)?.upload_url;
 
     if (!audioUrl) {
       throw new Error('AssemblyAI upload failed: missing audio URL');
