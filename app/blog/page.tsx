@@ -1,14 +1,18 @@
+"use client";
+
+import Link from 'next/link';
+
 const posts = [
   {
-    title: '教程：用 Sora2 快速批量生成字幕文件',
+    title: '教程：用 Sora2 完成一次字幕交付任务',
     category: '教程',
     excerpt:
-      '了解如何把 Sora 视频上传至字幕生成器，选择 Whisper 或 AssemblyAI，并导出适配剪辑软件的 SRT/VTT 文件。',
+      '面向 Sora2 用户的操作手册，从素材准备、系统上传、协作校对到复盘，手把手跑通完整字幕流程。',
     href: '/blog/guide',
     highlights: [
-      '准备素材与环境变量配置',
-      '上传视频、选择语言的完整流程',
-      '字幕文件导出的注意事项'
+      '团队上线前需要准备哪些账号与术语表',
+      '支付、转写、校对的关键动作',
+      '交付后如何复盘并沉淀模版'
     ]
   },
   {
@@ -59,9 +63,12 @@ export default function BlogPage() {
                   <li key={item}>• {item}</li>
                 ))}
               </ul>
-              <a href={post.href} className="mt-6 inline-flex w-fit items-center text-sm font-semibold text-indigo-300">
+              <Link
+                href={post.href}
+                className="mt-6 inline-flex w-fit items-center text-sm font-semibold text-indigo-300 transition hover:text-indigo-100"
+              >
                 阅读更多
-              </a>
+              </Link>
             </div>
           </article>
         ))}

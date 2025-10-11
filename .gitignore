@@ -19,6 +19,8 @@
 .env.local
 .env*.local
 .next
+.env
+.env.example
 
 # typescript
 *.tsbuildinfo

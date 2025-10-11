@@ -1,0 +1,18 @@
+<svg width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="360" rx="32" fill="#071321" />
+  <rect x="56" y="64" width="528" height="232" rx="28" fill="#101C32" />
+  <rect x="92" y="96" width="200" height="168" rx="20" fill="#182842" />
+  <rect x="120" y="132" width="144" height="24" rx="12" fill="#38BDF8" opacity="0.8" />
+  <rect x="120" y="168" width="120" height="16" rx="8" fill="#CBD5F5" opacity="0.7" />
+  <rect x="320" y="104" width="228" height="18" rx="9" fill="#38BDF8" opacity="0.85" />
+  <rect x="320" y="134" width="188" height="16" rx="8" fill="#CBD5F5" opacity="0.65" />
+  <rect x="320" y="162" width="208" height="16" rx="8" fill="#CBD5F5" opacity="0.5" />
+  <rect x="320" y="200" width="152" height="38" rx="19" fill="#22D3EE" opacity="0.85" />
+  <rect x="320" y="256" width="232" height="52" rx="20" fill="#131F37" />
+  <circle cx="356" cy="282" r="9" fill="#38BDF8" />
+  <circle cx="384" cy="282" r="9" fill="#F59E0B" />
+  <circle cx="412" cy="282" r="9" fill="#A855F7" />
+  <text x="444" y="288" fill="#E2E8F0" font-family="'Inter', 'Helvetica', 'Arial', sans-serif" font-size="16" font-weight="600">
+    协同审校 · 留言反馈
+  </text>
+</svg>

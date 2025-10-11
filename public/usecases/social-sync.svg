@@ -1,0 +1,17 @@
+<svg width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="360" rx="32" fill="#0A1120" />
+  <rect x="64" y="60" width="160" height="240" rx="28" fill="#131F37" />
+  <rect x="90" y="98" width="108" height="108" rx="20" fill="#38BDF8" opacity="0.8" />
+  <rect x="272" y="72" width="304" height="52" rx="18" fill="#1E293B" />
+  <rect x="272" y="142" width="240" height="18" rx="9" fill="#CBD5F5" opacity="0.8" />
+  <rect x="272" y="170" width="200" height="16" rx="8" fill="#CBD5F5" opacity="0.6" />
+  <rect x="272" y="198" width="220" height="16" rx="8" fill="#CBD5F5" opacity="0.45" />
+  <rect x="272" y="236" width="140" height="40" rx="20" fill="#22D3EE" opacity="0.9" />
+  <rect x="272" y="288" width="200" height="16" rx="8" fill="#38BDF8" opacity="0.35" />
+  <text x="272" y="104" fill="#F8FAFC" font-family="'Inter', 'Helvetica', 'Arial', sans-serif" font-size="20" font-weight="600">
+    社媒字幕 + 摘要
+  </text>
+  <text x="272" y="308" fill="#94A3B8" font-family="'Inter', 'Helvetica', 'Arial', sans-serif" font-size="16">
+    TikTok · 小红书 · Shorts
+  </text>
+</svg>

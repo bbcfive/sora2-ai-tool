@@ -6,6 +6,7 @@ import clsx from 'clsx';
 
 const links = [
   { href: '/', label: '主页' },
+  // { href: '/#sora2-ai-tool', label: 'sora2-ai-tool 专题' },
   { href: '/subtitles', label: '字幕生成器' },
   { href: '/blog', label: '博客' }
 ];
@@ -26,18 +27,19 @@ export function SiteHeader() {
           </Link>
         </div>
         <nav className="flex items-center gap-6 text-sm">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={clsx(
-                'transition-colors',
-                pathname === link.href ? 'text-slate-50' : 'text-slate-400 hover:text-primary'
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) => {
+            const isHashLink = link.href.includes('#');
+            const isActive = isHashLink ? pathname === '/' : pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={clsx('transition-colors', isActive ? 'text-slate-50' : 'text-slate-400 hover:text-primary')}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
         <Link
           href="/subtitles"

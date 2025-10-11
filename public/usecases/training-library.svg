@@ -1,0 +1,16 @@
+<svg width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="360" rx="32" fill="#071226" />
+  <rect x="72" y="72" width="496" height="216" rx="28" fill="#0F1B33" />
+  <rect x="108" y="108" width="184" height="144" rx="18" fill="#1A2744" />
+  <rect x="320" y="112" width="220" height="18" rx="9" fill="#38BDF8" opacity="0.85" />
+  <rect x="320" y="142" width="188" height="16" rx="8" fill="#CBD5F5" opacity="0.7" />
+  <rect x="320" y="170" width="208" height="16" rx="8" fill="#CBD5F5" opacity="0.55" />
+  <rect x="320" y="198" width="160" height="16" rx="8" fill="#CBD5F5" opacity="0.45" />
+  <rect x="320" y="226" width="200" height="16" rx="8" fill="#CBD5F5" opacity="0.3" />
+  <text x="108" y="292" fill="#F1F5F9" font-family="'Inter', 'Helvetica', 'Arial', sans-serif" font-size="18" font-weight="600">
+    培训视频字幕 · 知识库归档
+  </text>
+  <text x="108" y="316" fill="#94A3B8" font-family="'Inter', 'Helvetica', 'Arial', sans-serif" font-size="14">
+    支持章节摘要 / 搜索定位
+  </text>
+</svg>
