@@ -1,9 +1,5 @@
-import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
-
-const SubtitleGeneratorPageClient = dynamic(() => import('./subtitle-client'), {
-  ssr: false
-});
+import SubtitleGeneratorPageClient from './subtitle-client';
 
 export default function SubtitleGeneratorPage() {
   return (
