@@ -4,12 +4,18 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://sora2-ai-tool.examp
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = ['', '/subtitles', '/blog', '/blog/guide', '/blog/case-study', '/blog/prompt-share'];
+  const locales = ['zh', 'en'];
   const lastModified = new Date();
 
-  return routes.map((route) => ({
-    url: new URL(route || '/', baseUrl).toString(),
-    lastModified,
-    changeFrequency: 'weekly',
-    priority: route === '' ? 1 : 0.7
-  }));
+  return locales.flatMap((locale) =>
+    routes.map((route) => {
+      const pathname = route === '' ? `/${locale}` : `/${locale}${route}`;
+      return {
+        url: new URL(pathname, baseUrl).toString(),
+        lastModified,
+        changeFrequency: 'weekly',
+        priority: route === '' ? 1 : 0.7
+      };
+    })
+  );
 }

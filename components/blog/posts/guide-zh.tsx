@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
+export const metadataZh: Metadata = {
   title: '教程：用 Sora2 完成一次字幕交付任务',
   description: '面向 Sora2 用户的操作手册，从素材准备、系统上传到交付复盘，一站式掌握字幕工作流。'
 };
 
-const steps = [
+const stepsZh = [
   {
     title: '1. 开始前（团队准备）',
     items: [
@@ -17,7 +17,7 @@ const steps = [
   {
     title: '2. 上传素材并触发转写',
     items: [
-      '打开 `/subtitles`，根据素材选择“视频转字幕”或“语音转字幕”，上传 Sora 导出的成片或音频。',
+      '打开 `/zh/subtitles`，根据素材选择“视频转字幕”或“语音转字幕”，上传 Sora 导出的成片或音频。',
       '确认订单费用并完成支付，支付成功后页面会自动带上 `?paid=1`，提示可以生成字幕。',
       '点击“生成字幕文件”，Sora2 会调用所选引擎完成转写，并自动生成 SRT/VTT、分段文本与摘要。'
     ]
@@ -40,7 +40,7 @@ const steps = [
   }
 ];
 
-export default function GuidePage() {
+export function GuideArticleZh() {
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-10 px-6 py-16">
       <header className="space-y-3 text-left">
@@ -52,7 +52,7 @@ export default function GuidePage() {
       </header>
 
       <section className="space-y-8">
-        {steps.map((step) => (
+        {stepsZh.map((step) => (
           <article key={step.title} className="space-y-3 rounded-3xl border border-primary/20 bg-[#080f21]/80 p-6">
             <h2 className="text-xl font-semibold text-slate-100">{step.title}</h2>
             <ul className="space-y-2 text-sm text-slate-300">

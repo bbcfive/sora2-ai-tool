@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
+export const metadataZh: Metadata = {
   title: 'Prompt 分享：打造未来都市夜景短片',
   description: '分享高转化率的 Sora Prompt，并示范如何扩写为多渠道脚本。'
 };
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 const promptText = `Aerial shot of a futuristic neon city at night, light rain, reflective streets, diverse pedestrians in stylish techwear,
 pacing of 24fps film, cinematic lighting, subtle lens flare, immersive atmosphere.`;
 
-const channelScripts = [
+const channelScriptsZh = [
   {
     label: '微博宣传语',
     content: '「穿梭在雨夜霓虹里的未来之城，AI 赋予每一帧以生命。#Sora短片」'
@@ -23,7 +23,7 @@ const channelScripts = [
   }
 ];
 
-export default function PromptSharePage() {
+export function PromptShareArticleZh() {
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-10 px-6 py-16">
       <header className="space-y-3 text-left">
@@ -51,7 +51,7 @@ export default function PromptSharePage() {
       <section className="space-y-4 rounded-3xl border border-primary/20 bg-[#080f21]/80 p-6">
         <h2 className="text-xl font-semibold text-slate-100">多渠道脚本示例</h2>
         <div className="space-y-4">
-          {channelScripts.map((item) => (
+          {channelScriptsZh.map((item) => (
             <article key={item.label} className="space-y-2 rounded-2xl border border-primary/20 bg-[#050816]/80 p-4">
               <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">{item.label}</h3>
               <p className="text-sm text-slate-300">{item.content}</p>
@@ -62,7 +62,7 @@ export default function PromptSharePage() {
 
       <footer className="rounded-3xl border border-primary/20 bg-[#080f21]/80 p-6 text-sm text-slate-300">
         <p>
-          将该 Prompt 配合 `/subtitles` 页面生成的字幕，配上摘要与脚本生成功能，可在数分钟内完成短片的全渠道推广素材。
+          将该 Prompt 配合 `/zh/subtitles` 页面生成的字幕，配上摘要与脚本生成功能，可在数分钟内完成短片的全渠道推广素材。
           欢迎在社区分享你的作品，我们会挑选优秀案例加入 Showcase。
         </p>
       </footer>

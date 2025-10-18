@@ -197,9 +197,9 @@ const faqItems = [
 ];
 
 const resourceLinks = [
-  { label: 'sora2-ai-tool 字幕生成器', href: '/subtitles' },
-  { label: 'Sora2 内容运营指南', href: '/blog/guide' },
-  { label: '案例研究：Sora2 Studio 如何提效', href: '/blog/case-study' }
+  { label: 'sora2-ai-tool 字幕生成器', href: '/zh/subtitles' },
+  { label: 'Sora2 内容运营指南', href: '/zh/blog/guide' },
+  { label: '案例研究：Sora2 Studio 如何提效', href: '/zh/blog/case-study' }
 ];
 
 export default function Home() {
@@ -217,14 +217,14 @@ export default function Home() {
         </div>
         <div className="flex flex-col gap-4 sm:flex-row">
           <Link
-            href="/subtitles"
+            href="/zh/subtitles"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition hover:bg-accent"
           >
             立即体验
             <ArrowRight className="h-4 w-4" />
           </Link>
           <Link
-            href="/blog/guide"
+            href="/zh/blog/guide"
             className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/40 px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-primary hover:text-primary"
           >
             查看教程
@@ -291,7 +291,7 @@ export default function Home() {
               </li>
             </ul>
             <Link
-              href="/subtitles"
+              href="/zh/subtitles"
               className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition hover:text-accent"
             >
               打开字幕生成器
@@ -366,7 +366,7 @@ Sora 带你穿梭在未来都市的黎明。
             </p>
           </div>
           <Link
-            href="/blog/case-study"
+            href="/zh/blog/case-study"
             className="inline-flex items-center gap-2 text-xs font-semibold text-primary transition hover:text-accent"
           >
             查看更多案例
@@ -415,7 +415,7 @@ Sora 带你穿梭在未来都市的黎明。
             </p>
           </div>
         </div>
-        <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition hover:text-accent">
+        <Link href="/zh/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition hover:text-accent">
           订阅更新
           <ArrowRight className="h-4 w-4" />
         </Link>
@@ -551,7 +551,7 @@ Sora 带你穿梭在未来都市的黎明。
             还在评估 sora2-ai-tool？预约演示了解如何把 Sora 生成视频转化为可发布的字幕、脚本与营销素材。
           </p>
           <Link
-            href="/subtitles"
+            href="/zh/subtitles"
             className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-accent"
           >
             预约演示 &gt;

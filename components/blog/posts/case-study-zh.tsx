@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
+export const metadataZh: Metadata = {
   title: 'Sora2 如何帮助内容团队快速落地',
   description: '面向潜在使用者，展示 Sora2 在真实团队中的落地方式、角色协作与效率收益。'
 };
 
-const personas = [
+const personasZh = [
   {
     title: '内容运营：三分钟梳理上线需求',
     items: [
@@ -32,13 +32,13 @@ const personas = [
   }
 ];
 
-const automation = [
+const automationZh = [
   '通过 `/api/transcribe` 批量上传素材，适合周更/日更的内容团队。',
   '结合对象存储与 Webhook，实现字幕生成完成后自动通知到 Slack/飞书。',
   '把字幕、摘要、脚本同步到知识库（Notion、Confluence），沉淀可复用模板。'
 ];
 
-export default function CaseStudyPage() {
+export function CaseStudyArticleZh() {
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-10 px-6 py-16">
       <header className="space-y-3 text-left">
@@ -59,7 +59,7 @@ export default function CaseStudyPage() {
       </section>
 
       <section className="space-y-8">
-        {personas.map((block) => (
+        {personasZh.map((block) => (
           <article key={block.title} className="space-y-3 rounded-3xl border border-primary/20 bg-[#080f21]/80 p-6">
             <h2 className="text-xl font-semibold text-slate-100">{block.title}</h2>
             <ul className="space-y-2 text-sm text-slate-300">
@@ -74,7 +74,7 @@ export default function CaseStudyPage() {
       <section className="space-y-4 rounded-3xl border border-primary/20 bg-[#080f21]/80 p-6">
         <h2 className="text-xl font-semibold text-slate-100">自动化拓展</h2>
         <ul className="space-y-2 text-sm text-slate-300">
-          {automation.map((item) => (
+          {automationZh.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>

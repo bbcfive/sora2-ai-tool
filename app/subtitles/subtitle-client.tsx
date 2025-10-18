@@ -3,6 +3,7 @@
 import { useMemo, useRef, useState, type ChangeEvent } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { CloudUpload, Languages, Mic2, ShieldCheck } from 'lucide-react';
+import type { Locale } from '@/i18n/config';
 
 type TranscriptLine = {
   start: string;
@@ -24,11 +25,18 @@ const providers = [
   { label: 'AssemblyAI', value: 'assemblyai' }
 ];
 
-const languageOptions = [
+const languageOptionsZh = [
   { label: '中文 (简体)', value: 'zh-CN' },
   { label: 'English', value: 'en' },
   { label: '日本語', value: 'ja' },
   { label: 'Español', value: 'es' }
+];
+
+const languageOptionsEn = [
+  { label: 'Chinese (Simplified)', value: 'zh-CN' },
+  { label: 'English', value: 'en' },
+  { label: 'Japanese', value: 'ja' },
+  { label: 'Spanish', value: 'es' }
 ];
 
 const sampleTranscript: TranscriptLine[] = [
@@ -94,7 +102,8 @@ const downloadTextFile = (content: string, filename: string) => {
   URL.revokeObjectURL(url);
 };
 
-export default function SubtitleGeneratorPage() {
+export default function SubtitleGeneratorPage({ locale }: { locale: Locale }) {
+  const isEn = locale === 'en';
   const searchParams = useSearchParams();
   const hasPaid = searchParams.get('paid') === '1';
   const paymentCancelled = searchParams.get('paid') === '0';
@@ -114,7 +123,7 @@ export default function SubtitleGeneratorPage() {
     event.preventDefault();
 
     if (!selectedFile) {
-      setFormError('请先选择要处理的文件。');
+      setFormError(isEn ? 'Please select a file first.' : '请先选择要处理的文件。');
       if (!hasPaid) {
         setIsPaymentOpen(true);
       }
@@ -141,19 +150,19 @@ export default function SubtitleGeneratorPage() {
 
       if (!response.ok) {
         const body = await response.json().catch(() => ({}));
-        throw new Error(body?.error ?? '生成字幕失败，请稍后重试');
+        throw new Error(body?.error ?? (isEn ? 'Subtitle generation failed. Please retry later.' : '生成字幕失败，请稍后重试'));
       }
 
       const data = (await response.json()) as { data?: TranscriptionResponse };
       if (!data.data) {
-        throw new Error('未取得字幕结果，请稍后再试');
+        throw new Error(isEn ? 'No subtitle result received. Please try again.' : '未取得字幕结果，请稍后再试');
       }
 
       setResult(data.data);
       setStatus('done');
     } catch (error) {
       setStatus('idle');
-      setFormError(error instanceof Error ? error.message : '生成字幕失败，请稍后重试');
+      setFormError(error instanceof Error ? error.message : isEn ? 'Subtitle generation failed. Please retry later.' : '生成字幕失败，请稍后重试');
     }
   };
 
@@ -167,17 +176,17 @@ export default function SubtitleGeneratorPage() {
 
       if (!response.ok) {
         const body = await response.json().catch(() => ({}));
-        throw new Error(body?.error ?? '无法创建支付链接');
+        throw new Error(body?.error ?? (isEn ? 'Unable to create checkout link.' : '无法创建支付链接'));
       }
 
       const data = (await response.json()) as { data?: { url?: string } };
       const url = data?.data?.url;
       if (!url) {
-        throw new Error('支付链接生成失败，请稍后重试');
+        throw new Error(isEn ? 'Failed to create checkout URL. Please try again.' : '支付链接生成失败，请稍后重试');
       }
       window.location.href = url;
     } catch (error) {
-      setPaymentError(error instanceof Error ? error.message : '支付初始化失败');
+      setPaymentError(error instanceof Error ? error.message : isEn ? 'Payment initialisation failed.' : '支付初始化失败');
     } finally {
       setIsCheckoutLoading(false);
     }
@@ -215,9 +224,21 @@ export default function SubtitleGeneratorPage() {
   };
 
   const acceptedMime = mode === 'video' ? 'video/*' : 'audio/*';
-  const uploadTitle = mode === 'video' ? '上传 Sora 视频' : '上传音频文件';
-  const uploadHint =
-    mode === 'video' ? '支持 MP4 / MOV / WebM，最大 500MB' : '支持 MP3 / WAV / M4A 等音频格式';
+  const uploadTitle = isEn
+    ? mode === 'video'
+      ? 'Upload your Sora video'
+      : 'Upload an audio file'
+    : mode === 'video'
+      ? '上传 Sora 视频'
+      : '上传音频文件';
+  const uploadHint = isEn
+    ? mode === 'video'
+      ? 'Supports MP4 / MOV / WebM, up to 500MB'
+      : 'Supports MP3 / WAV / M4A and more'
+    : mode === 'video'
+      ? '支持 MP4 / MOV / WebM，最大 500MB'
+      : '支持 MP3 / WAV / M4A 等音频格式';
+  const languages = isEn ? languageOptionsEn : languageOptionsZh;
 
   const toggleLanguage = (value: string) => {
     setSelectedLanguages((prev) => {
@@ -234,10 +255,10 @@ export default function SubtitleGeneratorPage() {
   const previewBlocks = useMemo(() => {
     if (result) {
       const langLabel =
-        languageOptions.find((option) => option.value === result.language) ||
+        languages.find((option) => option.value === result.language) ||
         (result.language
           ? { label: result.language, value: result.language }
-          : { label: '识别结果', value: 'default' });
+          : { label: isEn ? 'Transcribed result' : '识别结果', value: 'default' });
 
       return [
         {
@@ -252,7 +273,7 @@ export default function SubtitleGeneratorPage() {
 
     return selectedLanguages.map((language) => ({
       key: language,
-      label: languageOptions.find((option) => option.value === language)?.label ?? language,
+      label: languages.find((option) => option.value === language)?.label ?? language,
       provider,
       srt: createSrt(sampleTranscript, language),
       vtt: createVtt(sampleTranscript, language)
@@ -263,9 +284,13 @@ export default function SubtitleGeneratorPage() {
     <>
       <main className="mx-auto flex w-full max-w-5xl flex-col gap-12 px-6 py-16">
       <header className="space-y-4 text-center">
-        <h1 className="text-3xl font-semibold text-slate-50">Sora 视频字幕生成器</h1>
+        <h1 className="text-3xl font-semibold text-slate-50">
+          {isEn ? 'Sora Subtitle Studio' : 'Sora 视频字幕生成器'}
+        </h1>
         <p className="text-base text-slate-300">
-          上传 Sora 视频，自动识别对白并输出多个语言版本的字幕文件。当前为演示数据，接入 `/api/transcribe` 后即可生成真实转写。
+          {isEn
+            ? 'Upload Sora footage, transcribe with Whisper or AssemblyAI, and export multilingual subtitle files. This demo shows sample data; connect to `/api/transcribe` to generate live results.'
+            : '上传 Sora 视频，自动识别对白并输出多个语言版本的字幕文件。当前为演示数据，接入 `/api/transcribe` 后即可生成真实转写。'}
         </p>
       </header>
 
@@ -276,14 +301,20 @@ export default function SubtitleGeneratorPage() {
               <div className="mb-4 flex items-center gap-3 rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-4 text-sm text-emerald-200">
                 <ShieldCheck className="h-5 w-5" />
                 <div>
-                  <p className="font-semibold">支付已完成</p>
-                  <p className="text-xs text-emerald-100/80">现在可以生成字幕文件，支付完成后重新提交即可触发转写流程。</p>
+                  <p className="font-semibold">{isEn ? 'Payment confirmed' : '支付已完成'}</p>
+                  <p className="text-xs text-emerald-100/80">
+                    {isEn
+                      ? 'You can now generate subtitles. Submit the file again to start transcription.'
+                      : '现在可以生成字幕文件，支付完成后重新提交即可触发转写流程。'}
+                  </p>
                 </div>
               </div>
             )}
             {paymentCancelled && !hasPaid && (
               <div className="mb-4 rounded-2xl border border-primary/30 bg-[#160f24]/80 p-4 text-sm text-primary">
-                支付流程已取消，如果需要继续生成字幕，请重新发起支付。
+                {isEn
+                  ? 'Payment was cancelled. Reopen checkout if you want to continue.'
+                  : '支付流程已取消，如果需要继续生成字幕，请重新发起支付。'}
               </div>
             )}
           </div>
@@ -296,8 +327,12 @@ export default function SubtitleGeneratorPage() {
                   <Mic2 className="h-5 w-5" />
                 </span>
                 <div>
-                  <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-primary">字幕引擎</h2>
-                  <p className="text-xs text-slate-500">选择 Sora 视频并配置转写选项</p>
+                  <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-primary">
+                    {isEn ? 'Subtitle engine' : '字幕引擎'}
+                  </h2>
+                  <p className="text-xs text-slate-500">
+                    {isEn ? 'Upload your Sora file and configure transcription.' : '选择 Sora 视频并配置转写选项'}
+                  </p>
                 </div>
               </div>
               <span className="rounded-full border border-primary/30 px-3 py-1 text-xs font-semibold text-primary">Beta</span>
@@ -313,7 +348,7 @@ export default function SubtitleGeneratorPage() {
                     : 'border border-primary/30 bg-transparent text-slate-300 hover:border-primary/50'
                 }`}
               >
-                视频转字幕
+                {isEn ? 'Video to subtitles' : '视频转字幕'}
               </button>
               <button
                 type="button"
@@ -324,7 +359,7 @@ export default function SubtitleGeneratorPage() {
                     : 'border border-primary/30 bg-transparent text-slate-300 hover:border-primary/50'
                 }`}
               >
-                语音转字幕
+                {isEn ? 'Audio to subtitles' : '语音转字幕'}
               </button>
             </div>
 
@@ -344,11 +379,11 @@ export default function SubtitleGeneratorPage() {
               >
                 <CloudUpload className="h-10 w-10 text-primary" />
                 <div className="space-y-1">
-                  <p className="text-slate-200">拖拽文件到此处，或点击选择文件</p>
+                  <p className="text-slate-200">{isEn ? 'Drag your file here or click to browse' : '拖拽文件到此处，或点击选择文件'}</p>
                   <p className="text-xs text-slate-500">{uploadHint}</p>
                   {selectedFile && (
                     <p className="text-xs text-slate-300">
-                      已选择：{selectedFile.name} ({(selectedFile.size / (1024 * 1024)).toFixed(2)} MB)
+                      {isEn ? 'Selected:' : '已选择：'} {selectedFile.name} ({(selectedFile.size / (1024 * 1024)).toFixed(2)} MB)
                     </p>
                   )}
                 </div>
@@ -367,14 +402,14 @@ export default function SubtitleGeneratorPage() {
                   }}
                   className="rounded-full border border-primary/40 px-4 py-2 text-xs font-semibold text-primary transition hover:border-primary hover:text-primary"
                 >
-                  选择文件
+                  {isEn ? 'Choose file' : '选择文件'}
                 </button>
               </div>
             </label>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <label className="block text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
-                转写服务
+                {isEn ? 'Transcription engine' : '转写服务'}
                 <div className="mt-2 rounded-xl border border-primary/30 bg-[#080f21] p-2">
                   <select
                     value={provider}
@@ -391,10 +426,10 @@ export default function SubtitleGeneratorPage() {
               </label>
 
               <fieldset className="space-y-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
-                <legend>输出语言</legend>
+                <legend>{isEn ? 'Output languages' : '输出语言'}</legend>
                 <div className="mt-2 rounded-xl border border-primary/30 bg-[#080f21] p-3 text-left">
                   <div className="grid gap-2 text-xs normal-case text-slate-300">
-                    {languageOptions.map((option) => {
+                    {languages.map((option) => {
                       const checked = selectedLanguages.includes(option.value);
                       return (
                         <label key={option.value} className="flex items-center justify-between gap-2">
@@ -422,7 +457,13 @@ export default function SubtitleGeneratorPage() {
               disabled={status === 'uploading'}
               className="mt-6 w-full rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {status === 'uploading' ? '生成中…' : hasPaid ? '生成字幕文件' : '先支付后生成字幕'}
+            {status === 'uploading'
+              ? isEn ? 'Generating…' : '生成中…'
+              : hasPaid
+                ? isEn ? 'Generate subtitles' : '生成字幕文件'
+                : isEn
+                  ? 'Complete payment to generate'
+                  : '先支付后生成字幕'}
             </button>
           </div>
         </form>
@@ -432,16 +473,26 @@ export default function SubtitleGeneratorPage() {
             <div className="flex items-center gap-3">
               <Languages className="h-5 w-5 text-primary" />
               <div>
-                <h3 className="text-sm font-semibold uppercase tracking-[0.3em] text-primary">输出预览</h3>
-                <p className="text-xs text-slate-500">多语言字幕与下载链接将显示在这里</p>
+                <h3 className="text-sm font-semibold uppercase tracking-[0.3em] text-primary">
+                  {isEn ? 'Subtitle preview' : '输出预览'}
+                </h3>
+                <p className="text-xs text-slate-500">
+                  {isEn ? 'Multilingual subtitles and download links will appear here.' : '多语言字幕与下载链接将显示在这里'}
+                </p>
               </div>
             </div>
           </div>
 
           <div className="mt-6 rounded-2xl border border-dashed border-primary/20 bg-[#050816]/80 p-6 text-center text-sm text-slate-400">
-            {status === 'idle' && <p>提交视频后，会在这里展示字幕片段与多语言下载链接。</p>}
+            {status === 'idle' && (
+              <p>{isEn ? 'Submit your file to preview subtitle segments and download links.' : '提交视频后，会在这里展示字幕片段与多语言下载链接。'}</p>
+            )}
             {status === 'uploading' && (
-              <p className="text-primary">正在调用 {provider === 'whisper' ? 'Whisper' : 'AssemblyAI'}，请稍候...</p>
+              <p className="text-primary">
+                {isEn
+                  ? `Calling ${provider === 'whisper' ? 'Whisper' : 'AssemblyAI'}…`
+                  : `正在调用 ${provider === 'whisper' ? 'Whisper' : 'AssemblyAI'}，请稍候...`}
+              </p>
             )}
             {status === 'done' && (
               <div className="space-y-5 text-left">
@@ -450,21 +501,23 @@ export default function SubtitleGeneratorPage() {
                     <div className="flex items-center justify-between">
                       <div>
                         <span className="text-xs uppercase tracking-wide text-primary">{blockProvider}</span>
-                        <h4 className="text-sm font-semibold text-slate-100">{label} 字幕预览</h4>
+                        <h4 className="text-sm font-semibold text-slate-100">
+                          {label} {isEn ? 'preview' : '字幕预览'}
+                        </h4>
                       </div>
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => downloadTextFile(blockSrt, `sora-subtitles-${key}.srt`)}
                           className="inline-flex items-center justify-center rounded-full border border-primary/40 px-3 py-2 text-xs font-semibold text-primary transition hover:border-primary"
                         >
-                          下载 SRT
+                          {isEn ? 'Download SRT' : '下载 SRT'}
                         </button>
                         {blockVtt && (
                           <button
                             onClick={() => downloadTextFile(blockVtt, `sora-subtitles-${key}.vtt`)}
                             className="inline-flex items-center justify-center rounded-full border border-primary/40 px-3 py-2 text-xs font-semibold text-primary transition hover:border-primary"
                           >
-                            下载 VTT
+                            {isEn ? 'Download VTT' : '下载 VTT'}
                           </button>
                         )}
                       </div>
@@ -493,6 +546,7 @@ export default function SubtitleGeneratorPage() {
         error={paymentError}
         onClose={closePaymentModal}
         onConfirm={handleCheckout}
+        locale={locale}
       />
     </>
   );
@@ -504,9 +558,11 @@ type PaymentModalProps = {
   error: string | null;
   onClose: () => void;
   onConfirm: () => void;
+  locale: Locale;
 };
 
-function PaymentModal({ open, loading, error, onClose, onConfirm }: PaymentModalProps) {
+function PaymentModal({ open, loading, error, onClose, onConfirm, locale }: PaymentModalProps) {
+  const isEn = locale === 'en';
   if (!open) {
     return null;
   }
@@ -516,18 +572,26 @@ function PaymentModal({ open, loading, error, onClose, onConfirm }: PaymentModal
       <div className="w-full max-w-md rounded-3xl border border-primary/30 bg-[#050816]/95 p-8 shadow-[0_40px_100px_-60px_rgba(56,189,248,0.6)] backdrop-blur">
         <div className="space-y-6 text-slate-200">
           <header className="space-y-2">
-            <h2 className="text-xl font-semibold text-slate-50">完成支付以生成字幕</h2>
+            <h2 className="text-xl font-semibold text-slate-50">
+              {isEn ? 'Complete payment to generate subtitles' : '完成支付以生成字幕'}
+            </h2>
             <p className="text-sm text-slate-400">
-              我们将调用云端转写引擎完成字幕制作。支付完成后会自动跳转回本页面，随后即可上传视频并下载字幕文件。
+              {isEn
+                ? 'We will call the cloud transcription engine once payment succeeds. You will be redirected back to upload and download subtitles.'
+                : '我们将调用云端转写引擎完成字幕制作。支付完成后会自动跳转回本页面，随后即可上传视频并下载字幕文件。'}
             </p>
           </header>
 
           <div className="rounded-2xl border border-primary/20 bg-[#0b1224]/70 p-4 text-sm text-slate-300">
             <div className="flex items-center justify-between">
-              <span className="font-semibold text-slate-100">字幕生成服务</span>
+              <span className="font-semibold text-slate-100">{isEn ? 'Subtitle generation' : '字幕生成服务'}</span>
               <span className="text-lg font-semibold text-primary">¥69.00</span>
             </div>
-            <p className="mt-2 text-xs text-slate-500">包含 Whisper / AssemblyAI 双引擎、术语词典支持、多语言字幕导出。</p>
+            <p className="mt-2 text-xs text-slate-500">
+              {isEn
+                ? 'Includes Whisper / AssemblyAI engines, glossary support, and multilingual exports.'
+                : '包含 Whisper / AssemblyAI 双引擎、术语词典支持、多语言字幕导出。'}
+            </p>
           </div>
 
           {error && <p className="rounded-2xl border border-red-500/40 bg-red-500/10 p-3 text-xs text-red-200">{error}</p>}
@@ -539,7 +603,7 @@ function PaymentModal({ open, loading, error, onClose, onConfirm }: PaymentModal
               disabled={loading}
               className="flex-1 rounded-full border border-primary/30 px-5 py-3 text-sm font-semibold text-slate-300 transition hover:border-primary/60 hover:text-slate-50 disabled:cursor-not-allowed"
             >
-              稍后再说
+              {isEn ? 'Maybe later' : '稍后再说'}
             </button>
             <button
               type="button"
@@ -547,12 +611,14 @@ function PaymentModal({ open, loading, error, onClose, onConfirm }: PaymentModal
               disabled={loading}
               className="flex-1 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition hover:bg-accent disabled:cursor-not-allowed disabled:opacity-70"
             >
-              {loading ? '跳转中…' : '前往支付'}
+              {loading ? (isEn ? 'Redirecting…' : '跳转中…') : isEn ? 'Proceed to checkout' : '前往支付'}
             </button>
           </div>
 
           <p className="text-center text-xs text-slate-500">
-            支持 Stripe Test 模式。如需企业级定制计费，可联系团队获取专属方案。
+            {isEn
+              ? 'Stripe test mode is supported. For enterprise billing, contact the team for a custom plan.'
+              : '支持 Stripe Test 模式。如需企业级定制计费，可联系团队获取专属方案。'}
           </p>
         </div>
       </div>

@@ -8,7 +8,7 @@ const posts = [
     category: '教程',
     excerpt:
       '面向 Sora2 用户的操作手册，从素材准备、系统上传、协作校对到复盘，手把手跑通完整字幕流程。',
-    href: '/blog/guide',
+    href: '/zh/blog/guide',
     highlights: [
       '团队上线前需要准备哪些账号与术语表',
       '支付、转写、校对的关键动作',
@@ -20,7 +20,7 @@ const posts = [
     category: '案例',
     excerpt:
       '复盘一家初创团队如何借助 Sora2 工具，把 Sora 生成的视频快速转写成中英双语字幕并上线社交媒体。',
-    href: '/blog/case-study',
+    href: '/zh/blog/case-study',
     highlights: [
       '产品宣传片的镜头设计与 Prompt',
       '字幕翻译与术语统一',
@@ -32,7 +32,7 @@ const posts = [
     category: 'Prompt',
     excerpt:
       '分享一个高转化率的 Sora Prompt，以及如何用 Sora2 的优化器输出适配不同渠道的脚本文案。',
-    href: '/blog/prompt-share',
+    href: '/zh/blog/prompt-share',
     highlights: [
       '原始 Prompt 与改写后的版本对比',
       '如何根据渠道调整叙事语气',
