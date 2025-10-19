@@ -12,7 +12,9 @@ export const metadataEn: Metadata = {
     'AI video prompt tips',
     'Sora2 subtitle workflow',
     'Sora2 localisation',
-    'Sora video best practices'
+    'Sora video best practices',
+    'Sora2 agent skills',
+    'agent skills automation'
   ]
 };
 
@@ -21,6 +23,7 @@ const navItems = [
   { id: 'tips', label: '15 optimisation tips' },
   { id: 'templates', label: '10 scenario templates' },
   { id: 'workflow', label: '4-step iteration loop' },
+  { id: 'agent-skills', label: 'Agent skills automation' },
   { id: 'pitfalls', label: 'Common mistakes' },
   { id: 'cases', label: 'Practical case studies' }
 ];
@@ -136,6 +139,22 @@ const content: GuideContent = {
       ]
     },
     {
+      id: 'agent-skills',
+      title: 'Agent skills automation stack',
+      callout:
+        'Agent skills are reusable micro-abilities you can plug into Sora2 to automate prompts, subtitle QA, and multi-market delivery without rebuilding flows from scratch.',
+      paragraphs: [
+        'Bundle Sora2 agent skills into your project so that every video prompt automatically triggers downstream subtitle and localisation steps.',
+        'Start with a core trio: prompt templating, subtitle QA, and localisation rollout. Add adjacent skills—asset tagging, copy drafting, compliance checking—as your workflow scales.'
+      ],
+      bullets: [
+        'Prompt templating agent skills: inject brand-safe language, guardrails, and scenario presets into every generation.',
+        'Subtitle automation skills: auto-review terminology, timing, and formatting, then flag clips that need human review.',
+        'Localisation skills: translate summaries, rewrite channel copy, and push deliverables to regional folders.',
+        'Analytics skills: track turn-around time, success rate, and agent ownership so you can report ROI on automation.'
+      ]
+    },
+    {
       id: 'pitfalls',
       title: 'Common mistakes & how to fix them',
       paragraphs: ['The guide highlights recurrent issues and actionable fixes so your Sora2 prompt strategy stays scalable across AI video campaigns.'],
@@ -201,6 +220,7 @@ const content: GuideContent = {
       { id: 'tips', label: 'Optimisation tips' },
       { id: 'templates', label: 'Scenario templates' },
       { id: 'workflow', label: 'Iteration loop' },
+      { id: 'agent-skills', label: 'Agent skills' },
       { id: 'pitfalls', label: 'Mistakes' },
       { id: 'cases', label: 'Case studies' }
     ]

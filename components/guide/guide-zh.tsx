@@ -4,7 +4,7 @@ import { GuideTemplate, type GuideContent } from '@/components/guide/guide-templ
 export const metadataZh: Metadata = {
   title: 'Sora2 提示词进阶指南 | AI 视频提示词与字幕工作流最佳实践',
   description: '掌握 Sora2 提示词工程：15 个优化技巧、10 种场景模板，快速构建字幕与多语言发布流程。',
-  keywords: ['Sora2 提示词', 'Sora2 提示词指南', 'Sora2 视频生成', 'AI 视频提示词', 'Sora2 字幕工作流', 'Sora2 本地化', 'Sora2 自动化']
+  keywords: ['Sora2 提示词', 'Sora2 提示词指南', 'Sora2 视频生成', 'AI 视频提示词', 'Sora2 字幕工作流', 'Sora2 本地化', 'Sora2 自动化', 'Sora2 agent skills', 'agent skills 智能体技能包']
 };
 
 const navItems = [
@@ -12,6 +12,7 @@ const navItems = [
   { id: 'tips', label: '15 个优化技巧' },
   { id: 'templates', label: '10 大场景模板' },
   { id: 'workflow', label: '提示词迭代工作流' },
+  { id: 'agent-skills', label: 'Agent Skills 能力组' },
   { id: 'pitfalls', label: '常见错误与修正' },
   { id: 'cases', label: '实战案例分析' }
 ];
@@ -124,6 +125,21 @@ const content: GuideContent = {
       ]
     },
     {
+      id: 'agent-skills',
+      title: 'Agent Skills 自动化能力组',
+      callout: 'Agent Skills（智能体技能包）把常用动作封装成模块，让 Sora2 从提示词、字幕到本地化的流程自动衔接。',
+      paragraphs: [
+        '在项目里预设 Sora2 agent skills，可让每次生成视频时同步触发字幕质检、渠道文案与归档动作。',
+        '先部署三大核心能力：提示词模板、字幕质检、本地化交付；随着团队扩展，再补充素材打标、合规检查、绩效分析等技能。'
+      ],
+      bullets: [
+        '提示词模板技能：自动注入品牌词表、安全规则与场景预设，保持输出一致性。',
+        '字幕自动化技能：检查术语、时间轴与格式，标记需要人工复核的片段。',
+        '本地化技能：将摘要、渠道文案、字幕包推送到多语言协作目录。',
+        '数据分析技能：记录周转时间、成功率与技能调用者，为自动化 ROI 提供依据。'
+      ]
+    },
+    {
       id: 'pitfalls',
       title: '常见错误与修正',
       paragraphs: ['作者总结了四类高频错误，并给出修复方法，帮助你构建可扩展的 Sora2 提示词策略。'],
@@ -189,6 +205,7 @@ const content: GuideContent = {
       { id: 'tips', label: '15 个技巧' },
       { id: 'templates', label: '场景模板' },
       { id: 'workflow', label: '迭代工作流' },
+      { id: 'agent-skills', label: 'Agent Skills' },
       { id: 'pitfalls', label: '常见错误' },
       { id: 'cases', label: '案例分析' }
     ]

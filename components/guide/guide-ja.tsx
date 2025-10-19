@@ -4,7 +4,7 @@ import { GuideTemplate, type GuideContent } from '@/components/guide/guide-templ
 export const metadataJa: Metadata = {
   title: 'Sora2 プロンプト進化ガイド | AI映像プロンプトと字幕ワークフローの最適化',
   description: 'Sora2 のプロンプト設計を体系化。15の最適化テク、10のテンプレート、字幕とローカライズの連携術をまとめました。',
-  keywords: ['Sora2 プロンプト', 'Sora2 ガイド', 'Sora2 映像生成', 'AI プロンプト最適化', 'Sora2 字幕ワークフロー', 'Sora2 ローカライズ']
+  keywords: ['Sora2 プロンプト', 'Sora2 ガイド', 'Sora2 映像生成', 'AI プロンプト最適化', 'Sora2 字幕ワークフロー', 'Sora2 ローカライズ', 'Sora2 agent skills', 'agent skills オートメーション']
 };
 
 const navItems = [
@@ -12,6 +12,7 @@ const navItems = [
   { id: 'tips', label: '15の最適化テク' },
   { id: 'templates', label: '10のシーンテンプレ' },
   { id: 'workflow', label: '4ステップ改善ループ' },
+  { id: 'agent-skills', label: 'Agent Skills 自動化' },
   { id: 'pitfalls', label: 'よくある失敗' },
   { id: 'cases', label: '実践ケース' }
 ];
@@ -124,6 +125,21 @@ const content: GuideContent = {
       ]
     },
     {
+      id: 'agent-skills',
+      title: 'Agent Skills 自動化スタック',
+      callout: 'Agent skills（エージェントスキル）は Sora2 のワークフローを小さな能力ブロックに切り出し、字幕やローカライズまで自動連携させる仕組みです。',
+      paragraphs: [
+        'プロジェクトに Sora2 agent skills を組み込むと、映像生成のたびに字幕チェックやチャンネル原稿の更新が自動で走ります。',
+        'まずはプロンプトテンプレ、字幕QA、ローカライズ配信の3技能を揃え、将来的にアセットタグ付けや法務監査などのスキルを追加しましょう。'
+      ],
+      bullets: [
+        'プロンプトテンプレ技能：ブランドの語彙と安全ルールを常に差し込み、各シーンのプリセットを保持。',
+        '字幕オートQA技能：用語・タイムコード・フォーマットを検証し、要レビューのカットを通知。',
+        'ローカライズ技能：要約、SNS/配信文案、字幕ファイルを地域別フォルダへ自動配信。',
+        'アナリティクス技能：処理時間や成功率、担当エージェントを記録し、自動化 ROI を可視化。'
+      ]
+    },
+    {
       id: 'pitfalls',
       title: 'よくある失敗と修正',
       paragraphs: ['原文では以下の落とし穴と改善策が紹介されています。Sora2 のスケーラブルなプロンプト戦略づくりに役立ててください。'],
@@ -189,6 +205,7 @@ const content: GuideContent = {
       { id: 'tips', label: '15のテク' },
       { id: 'templates', label: 'シーンテンプレ' },
       { id: 'workflow', label: '改善ループ' },
+      { id: 'agent-skills', label: 'Agent Skills' },
       { id: 'pitfalls', label: '失敗例' },
       { id: 'cases', label: '実践ケース' }
     ]

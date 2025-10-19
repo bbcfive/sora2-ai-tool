@@ -5,7 +5,7 @@ export const metadataKo: Metadata = {
   title: 'Sora2 프롬프트 고급 가이드 | AI 영상 프롬프트와 자막 워크플로 최적화',
   description:
     'Sora2 프롬프트 설계를 체계화했습니다. 15개 최적화 팁과 10개 장면 템플릿, 자막·로컬라이제이션 자동화 전략을 통해 제작 효율을 높이세요.',
-  keywords: ['Sora2 프롬프트', 'Sora2 가이드', 'Sora2 영상 생성', 'AI 프롬프트 최적화', 'Sora2 자막 워크플로', 'Sora2 로컬라이제이션']
+  keywords: ['Sora2 프롬프트', 'Sora2 가이드', 'Sora2 영상 생성', 'AI 프롬프트 최적화', 'Sora2 자막 워크플로', 'Sora2 로컬라이제이션', 'Sora2 agent skills', 'agent skills 자동화']
 };
 
 const navItems = [
@@ -13,6 +13,7 @@ const navItems = [
   { id: 'tips', label: '15가지 최적화 팁' },
   { id: 'templates', label: '10가지 장면 템플릿' },
   { id: 'workflow', label: '4단계 반복 루프' },
+  { id: 'agent-skills', label: 'Agent Skills 자동화' },
   { id: 'pitfalls', label: '자주 하는 실수' },
   { id: 'cases', label: '실전 사례' }
 ];
@@ -125,6 +126,21 @@ const content: GuideContent = {
       ]
     },
     {
+      id: 'agent-skills',
+      title: 'Agent Skills 자동화 스택',
+      callout: 'Agent skills(에이전트 스킬)은 Sora2 워크플로의 반복 작업을 능력 단위로 묶어, 프롬프트·자막·로컬라이징까지 자동 연결해 줍니다.',
+      paragraphs: [
+        'Sora2 agent skills 를 프로젝트에 미리 세팅하면 영상이 생성될 때마다 자막 검수, 채널 문구 업데이트, 산출물 정리가 동시에 실행됩니다.',
+        '우선 프롬프트 템플릿, 자막 QA, 로컬라이징 배포의 3대 핵심 스킬을 구축하고, 이후 자산 태깅·컴플라이언스·성과 분석 등 확장 스킬을 추가하세요.'
+      ],
+      bullets: [
+        '프롬프트 템플릿 스킬: 브랜드 용어와 안전 가이드라인을 자동 주입해 일관된 결과를 유지합니다.',
+        '자막 자동화 스킬: 용어/타임코드/포맷을 검사하고, 재검토가 필요한 구간을 플래그 처리합니다.',
+        '로컬라이징 스킬: 요약, 채널 카피, 자막 패키지를 언어별 협업 폴더로 자동 전송합니다.',
+        '분석 스킬: 처리 시간, 성공률, 스킬 담당자를 기록해 자동화 ROI 보고서를 만듭니다.'
+      ]
+    },
+    {
       id: 'pitfalls',
       title: '자주 하는 실수와 해결 방법',
       paragraphs: ['원문에서 소개한 주요 실수를 한 번에 정리했습니다. 이를 참고해 확장 가능한 Sora2 프롬프트 전략을 설계하세요.'],
@@ -190,6 +206,7 @@ const content: GuideContent = {
       { id: 'tips', label: '15가지 팁' },
       { id: 'templates', label: '장면 템플릿' },
       { id: 'workflow', label: '반복 루프' },
+      { id: 'agent-skills', label: 'Agent Skills' },
       { id: 'pitfalls', label: '실수 방지' },
       { id: 'cases', label: '사례 분석' }
     ]
