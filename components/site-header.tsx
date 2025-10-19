@@ -3,12 +3,13 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import clsx from 'clsx';
+import { ChevronDown } from 'lucide-react';
 import type { Locale } from '@/i18n/config';
 import { locales, defaultLocale, localeNames } from '@/i18n/config';
 
 type HeaderCopy = {
   banner: string;
-  nav: { home: string; subtitles: string; blog: string };
+  nav: { home: string; subtitles: string; guide: string; blog: string };
   cta: string;
 };
 
@@ -18,6 +19,7 @@ const copy: Record<Locale, HeaderCopy> = {
     nav: {
       home: '主页',
       subtitles: '字幕生成器',
+      guide: '指南',
       blog: '博客'
     },
     cta: '立即体验'
@@ -27,15 +29,47 @@ const copy: Record<Locale, HeaderCopy> = {
     nav: {
       home: 'Home',
       subtitles: 'Subtitle Studio',
+      guide: 'Guide',
       blog: 'Blog'
     },
     cta: 'Get Started'
+  },
+  ja: {
+    banner: '🎬 Sora2 v0.1：字幕・プロンプト・スクリプトのツールキットが急速に進化中。',
+    nav: {
+      home: 'ホーム',
+      subtitles: '字幕スタジオ',
+      guide: 'ガイド',
+      blog: 'ブログ'
+    },
+    cta: '今すぐ試す'
+  },
+  ko: {
+    banner: '🎬 Sora2 v0.1: 자막·프롬프트·스크립트 툴킷이 빠르게 업그레이드되고 있어요.',
+    nav: {
+      home: '홈',
+      subtitles: '자막 스튜디오',
+      guide: '가이드',
+      blog: '블로그'
+    },
+    cta: '지금 시작'
+  },
+  ar: {
+    banner: '🎬 ‏Sora2 v0.1: مجموعة أدوات الترجمة والنصوص تتطور بسرعة.',
+    nav: {
+      home: 'الرئيسية',
+      subtitles: 'استوديو الترجمة',
+      guide: 'الدليل',
+      blog: 'المدونة'
+    },
+    cta: 'ابدأ الآن'
   }
 };
 
 const baseLinks = [
   { slug: '', key: 'home' as const },
   { slug: 'subtitles', key: 'subtitles' as const },
+  { slug: 'guide', key: 'guide' as const },
   { slug: 'blog', key: 'blog' as const }
 ];
 
@@ -92,23 +126,23 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           >
             {t.cta}
           </Link>
-          <div className="flex items-center gap-1 rounded-full border border-primary/40 bg-[#0c1228] px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-300">
-            {locales.map((item) => {
-              const isActive = item === locale;
-              return (
-                <button
-                  key={item}
-                  type="button"
-                  onClick={() => router.push(switchLocalePath(pathname, item))}
-                  className={clsx(
-                    'rounded-full px-2 py-1 transition',
-                    isActive ? 'bg-primary text-primary-foreground' : 'hover:text-primary'
-                  )}
-                >
+          <div className="relative">
+            <select
+              aria-label="Change language"
+              value={locale}
+              onChange={(event) => {
+                const nextLocale = event.target.value as Locale;
+                router.push(switchLocalePath(pathname, nextLocale));
+              }}
+              className="appearance-none rounded-full border border-primary/40 bg-[#0c1228] px-4 py-2 pr-10 text-xs font-semibold uppercase tracking-[0.2em] text-slate-300 shadow-inner outline-none transition hover:border-primary/60 hover:text-primary focus:border-primary focus:text-primary"
+            >
+              {locales.map((item) => (
+                <option key={item} value={item} className="bg-[#0c1228] text-slate-900">
                   {localeNames[item]}
-                </button>
-              );
-            })}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-3 w-3 -translate-y-1/2 text-slate-400" />
           </div>
         </div>
       </div>

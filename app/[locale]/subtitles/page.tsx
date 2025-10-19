@@ -4,7 +4,14 @@ import { locales } from '@/i18n/config';
 import type { Locale } from '@/i18n/config';
 
 export default function SubtitleGeneratorLocalePage({ params }: { params: { locale: Locale } }) {
-  const fallbackText = params.locale === 'en' ? 'Loading…' : '加载中…';
+  const fallbackByLocale: Record<Locale, string> = {
+    en: 'Loading…',
+    zh: '加载中…',
+    ja: '読み込み中…',
+    ko: '로딩 중…',
+    ar: 'جارٍ التحميل…'
+  };
+  const fallbackText = fallbackByLocale[params.locale] ?? fallbackByLocale.en;
   return (
     <Suspense fallback={<div className="px-6 py-16 text-center text-slate-300">{fallbackText}</div>}>
       <SubtitleGeneratorPageClient locale={params.locale} />

@@ -177,6 +177,70 @@ const testimonials = [
   }
 ];
 
+const usageFlows = [
+  {
+    badge: 'Step 01',
+    title: '准备素材与脚本',
+    description:
+      '从 Sora 导出母版视频或音频，统一命名并上传至 Sora2。可同步贴上参考脚本，方便比对。',
+    takeaways: [
+      '推荐使用 MP4/MOV/WebM，时长控制在 15 分钟内获取更佳识别结果',
+      '将角色、场景等关键信息写入备注，便于后续翻译与脚本生成'
+    ]
+  },
+  {
+    badge: 'Step 02',
+    title: '触发转写与翻译',
+    description: '选择 Whisper 或 AssemblyAI 模型，按需勾选多语言字幕并加载品牌术语词典。',
+    takeaways: [
+      '先运行中文字幕，复核时间轴后再复制任务到其它语言可减少返工',
+      '为常用术语配置「保留原词」或指定译法，保持不同渠道话术一致'
+    ]
+  },
+  {
+    badge: 'Step 03',
+    title: '协作校对与批注',
+    description: '邀请剪辑、法务或区域团队进入同一个任务，使用批注记录修改历史。',
+    takeaways: [
+      '设置「完成状态」标签帮助追踪审校进度',
+      '通过 Webhook 或邮件通知推动跨时区成员及时处理反馈'
+    ]
+  },
+  {
+    badge: 'Step 04',
+    title: '打包导出与自动分发',
+    description: '一键导出 SRT/VTT/文本稿，或同步到 DAM、剪辑软件和自动发布脚本。',
+    takeaways: [
+      '启用「多渠道打包」模板，生成社媒/官网/培训三套摘要与脚本',
+      '结合 API + Webhook，在生成完成后自动通知 Slack / 飞书 / Teams'
+    ]
+  }
+];
+
+const usagePlaybook = [
+  {
+    title: '团队入门清单',
+    points: [
+      '创建「模板库」保存常用字幕样式与 Prompt，减少重复设置',
+      '为每个市场建立命名规范：地区-语言-主题，方便检索历史项目'
+    ]
+  },
+  {
+    title: '审核协作技巧',
+    points: [
+      '善用差异视图比对字幕版本，让法务/品牌一次性确认所有修改',
+      '在评论内使用 @提及 功能，提醒负责的团队成员跟进'
+    ]
+  },
+  {
+    title: '自动化扩展建议',
+    points: [
+      '通过 API 拉取字幕稿，直连 Notion/Confluence 形成知识库',
+      '结合存储服务生成静态链接，方便代理商或客户无需登录即可下载'
+    ]
+  }
+];
+
 const faqItems = [
   {
     question: 'sora2-ai-tool 支持哪些格式的 Sora 视频？',
@@ -265,6 +329,61 @@ export default function Home() {
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="space-y-10 rounded-3xl border border-primary/25 bg-[#050816]/85 p-10">
+        <div className="space-y-4 text-left">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">使用说明</p>
+          <h2 className="text-2xl font-semibold text-slate-100">Sora2 工作流操作手册</h2>
+          <p className="max-w-3xl text-sm text-slate-400">
+            参考 ClaudeLog 的知识库结构，我们将常见的 sora2-ai-tool 使用路径拆成四个阶段，帮助你从素材整理、字幕生成到协作与自动化发布都做到心中有数。
+          </p>
+        </div>
+        <div className="grid gap-8 lg:grid-cols-[2fr_1fr]">
+          <div className="space-y-4">
+            {usageFlows.map((step) => (
+              <article
+                key={step.badge}
+                className="rounded-3xl border border-primary/25 bg-[#070d22]/85 p-6 transition hover:border-primary/40"
+              >
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <span className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">{step.badge}</span>
+                  <h3 className="text-lg font-semibold text-slate-100">{step.title}</h3>
+                </div>
+                <p className="mt-3 text-sm text-slate-300">{step.description}</p>
+                <ul className="mt-4 space-y-2 text-sm text-slate-400">
+                  {step.takeaways.map((item) => (
+                    <li key={item} className="flex items-start gap-2">
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+          <aside className="flex flex-col gap-4 rounded-3xl border border-primary/25 bg-[#070d22]/70 p-6 text-left">
+            <h3 className="text-lg font-semibold text-slate-100">进阶工作区建议</h3>
+            <p className="text-sm text-slate-400">
+              将这些设置加入你的团队手册，可显著减少重复沟通，并复用在未来的项目里。
+            </p>
+            <div className="space-y-4">
+              {usagePlaybook.map((item) => (
+                <div key={item.title} className="rounded-2xl border border-primary/20 bg-[#050b1f]/70 p-4">
+                  <h4 className="text-sm font-semibold text-slate-100">{item.title}</h4>
+                  <ul className="mt-3 space-y-2 text-xs text-slate-400">
+                    {item.points.map((point) => (
+                      <li key={point} className="flex items-start gap-2">
+                        <span className="mt-1 h-1 w-1 rounded-full bg-primary" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </aside>
         </div>
       </section>
 

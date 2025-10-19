@@ -3,13 +3,16 @@ import Link from 'next/link';
 import {
   ArrowRight,
   BadgeCheck,
+  CheckCircle2,
   Clapperboard,
+  Clock3,
   FileText,
   Film,
   Globe,
   Languages,
   Megaphone,
   Sparkles,
+  UploadCloud,
   Workflow
 } from 'lucide-react';
 
@@ -20,9 +23,24 @@ const highlights = [
 ];
 
 const heroStats = [
-  { label: 'Average turnaround', value: '≈ 5 min' },
-  { label: 'Languages covered', value: '30+' },
-  { label: 'Team satisfaction', value: '96%' }
+  {
+    label: 'Average turnaround',
+    value: '≈ 5 min',
+    helper: 'per subtitle batch',
+    icon: Clock3
+  },
+  {
+    label: 'Languages covered',
+    value: '30+',
+    helper: 'ready-to-export packs',
+    icon: Languages
+  },
+  {
+    label: 'Team satisfaction',
+    value: '96%',
+    helper: 'based on customer surveys',
+    icon: CheckCircle2
+  }
 ];
 
 const featureCards = [
@@ -110,6 +128,24 @@ const landingFeatureHighlights = [
   }
 ];
 
+const heroQuickActions = [
+  {
+    label: 'Upload batch',
+    description: 'Drag MP4, MOV, or WebM files — audio is extracted automatically.',
+    icon: UploadCloud
+  },
+  {
+    label: 'Auto glossary',
+    description: 'Apply brand terminology replacements before subtitles are generated.',
+    icon: Globe
+  },
+  {
+    label: 'Collaboration notes',
+    description: 'Mention teammates in-line and lock changes once reviews are done.',
+    icon: Workflow
+  }
+];
+
 const longTailKeywords = [
   { keyword: 'sora2-ai-tool subtitles', intent: 'Evaluate accuracy & export formats', content: 'Show timecode precision, sample exports, and supported subtitle formats.' },
   { keyword: 'sora2-ai-tool localization', intent: 'For global/localisation teams', content: 'Highlight 30+ language support and glossary automation.' },
@@ -159,6 +195,70 @@ const testimonials = [
   }
 ];
 
+const usageFlows = [
+  {
+    badge: 'Step 01',
+    title: 'Prepare source footage',
+    description:
+      'Export the mastered Sora file, keep filenames consistent, and upload video or clean audio into Sora2 along with any draft scripts.',
+    takeaways: [
+      'Stick to MP4/MOV/WebM under 15 minutes to keep transcription latency low',
+      'Add scene notes or glossary hints so localisation stays on-brand later'
+    ]
+  },
+  {
+    badge: 'Step 02',
+    title: 'Run transcription & translation',
+    description: 'Pick Whisper or AssemblyAI, choose every target language, and attach your terminology list before launching the job.',
+    takeaways: [
+      'Approve the primary language first and duplicate the task to reuse timings',
+      'Lock brand terms with “keep original” or preferred replacements for each locale'
+    ]
+  },
+  {
+    badge: 'Step 03',
+    title: 'Review with the team',
+    description: 'Invite editors, legal, or regional leads into the task, leaving threaded comments to capture every revision.',
+    takeaways: [
+      'Use status labels to signal when localisation or legal review is complete',
+      'Trigger notifications via Slack, Teams, or email when you need async sign-off'
+    ]
+  },
+  {
+    badge: 'Step 04',
+    title: 'Package & distribute',
+    description: 'Export SRT/VTT/text bundles or ship assets straight to storage, editing suites, and downstream automations.',
+    takeaways: [
+      'Spin up “channel packs” to bundle social copy, web copy, and scripts per region',
+      'Pair the API with webhooks to alert marketing tools the moment subtitles finish'
+    ]
+  }
+];
+
+const usagePlaybook = [
+  {
+    title: 'Workspace onboarding',
+    points: [
+      'Publish shared templates for subtitle styles, prompts, and export presets',
+      'Name projects with region-language-campaign to keep history searchable'
+    ]
+  },
+  {
+    title: 'Collaboration habits',
+    points: [
+      'Lean on version diffing so legal and brand teams can approve in one pass',
+      'Mention teammates inside comments to avoid side-channel approvals'
+    ]
+  },
+  {
+    title: 'Automation upgrades',
+    points: [
+      'Sync subtitles into Notion or Confluence via API to build a searchable library',
+      'Generate signed download links for agencies without giving full workspace access'
+    ]
+  }
+];
+
 const faqItems = [
   {
     question: 'Which formats does Sora2 accept?',
@@ -191,8 +291,8 @@ export default function HomeEn() {
         id="sora2-ai-tool"
         className="overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-[#0a1025] via-[#050816] to-[#0b1124] p-10 shadow-glow"
       >
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
-          <div className="flex flex-col gap-8 text-left lg:col-span-7">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,_7fr)_minmax(0,_5fr)] lg:items-center">
+          <div className="flex flex-col gap-8 text-left">
             <span className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-primary">
               Sora2 Studio
             </span>
@@ -230,14 +330,36 @@ export default function HomeEn() {
               ))}
             </div>
           </div>
-          <div className="relative lg:col-span-5">
-            <div className="relative rounded-[32px] border border-primary/40 bg-[#070d22]/70 p-6 shadow-[0_30px_80px_-40px_rgba(56,189,248,0.6)] backdrop-blur">
-              <div className="space-y-6">
-                <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-primary">
-                  <span>Live preview</span>
-                  <span>Sora2 Control</span>
+          <div className="relative">
+            <div className="relative overflow-hidden rounded-[32px] border border-primary/40 bg-gradient-to-b from-[#0b1530] via-[#070d22] to-[#050816] p-6 shadow-[0_30px_80px_-40px_rgba(56,189,248,0.6)] backdrop-blur">
+              <div className="absolute -right-10 top-10 h-40 w-40 rounded-full bg-primary/20 blur-3xl" aria-hidden />
+              <div className="absolute -left-12 bottom-0 h-48 w-48 rounded-full bg-accent/10 blur-3xl" aria-hidden />
+              <div className="relative space-y-6">
+                <div className="flex flex-wrap items-center justify-between gap-3 text-xs uppercase tracking-[0.3em] text-primary">
+                  <span className="inline-flex items-center gap-2 text-emerald-300">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.6)]" />
+                    Live preview
+                  </span>
+                  <span className="rounded-full border border-primary/40 px-3 py-1 text-[10px] text-slate-200">
+                    Sora2 Control
+                  </span>
                 </div>
-                <div className="overflow-hidden rounded-2xl border border-primary/20 bg-[#050816]">
+                <div className="rounded-3xl border border-primary/30 bg-[#050b1f]/80 p-4">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.25em] text-slate-400">Current task</p>
+                      <p className="mt-1 text-lg font-semibold text-slate-100">Launch reel · Multilingual pack</p>
+                    </div>
+                    <span className="inline-flex items-center gap-2 rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-semibold text-emerald-300">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                      Ready to export
+                    </span>
+                  </div>
+                  <p className="mt-3 text-xs text-slate-400">
+                    Subtitle timelines and prompt notes are synced for EN · JP · DE locales.
+                  </p>
+                </div>
+                {/* <div className="overflow-hidden rounded-2xl border border-primary/20 bg-[#050816]">
                   <Image
                     src="/usecases/hero-dashboard.svg"
                     alt="sora2-ai-tool dashboard overview"
@@ -245,19 +367,45 @@ export default function HomeEn() {
                     height={320}
                     className="h-auto w-full object-cover"
                   />
+                </div> */}
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {heroStats.map((stat) => {
+                    const Icon = stat.icon;
+                    return (
+                      <div key={stat.label} className="rounded-2xl border border-primary/20 bg-[#0b1224]/80 p-2 text-left">
+                        <div className="flex items-center gap-2 flex-wrap text-primary">
+                          <Icon className="h-4 w-4" />
+                          <p className="text-[8px] uppercase tracking-[0.25em]">{stat.label}</p>
+                        </div>
+                        <p className="mt-3 text-2xl font-semibold text-slate-50">{stat.value}</p>
+                        <p className="text-[11px] uppercase tracking-[0.2em] text-slate-500">{stat.helper}</p>
+                      </div>
+                    );
+                  })}
                 </div>
-                <div className="grid gap-4 sm:grid-cols-3">
-                  {heroStats.map((stat) => (
-                    <div key={stat.label} className="rounded-2xl border border-primary/20 bg-[#0b1224]/80 p-4 text-left">
-                      <p className="text-xs uppercase tracking-[0.2em] text-slate-400">{stat.label}</p>
-                      <p className="mt-2 text-xl font-semibold text-slate-50">{stat.value}</p>
-                    </div>
-                  ))}
+                <div className="space-y-3 rounded-3xl border border-primary/20 bg-[#050b1f]/70 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">Quick actions</p>
+                  <ul className="space-y-3 text-sm text-slate-300">
+                    {heroQuickActions.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <li key={item.label} className="flex items-start gap-3">
+                          <span className="mt-1 flex h-8 w-8 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10">
+                            <Icon className="h-4 w-4 text-primary" />
+                          </span>
+                          <div>
+                            <p className="text-sm font-semibold text-slate-100">{item.label}</p>
+                            <p className="text-xs text-slate-400">{item.description}</p>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
               </div>
             </div>
-            <div className="absolute -left-6 -top-6 h-32 w-32 rounded-full bg-primary/20 blur-3xl" aria-hidden />
-            <div className="absolute -right-10 bottom-0 h-40 w-40 rounded-full bg-accent/20 blur-3xl" aria-hidden />
+            <div className="absolute -left-6 -top-6 h-24 w-24 rounded-full bg-primary/30 blur-3xl" aria-hidden />
+            <div className="absolute -right-8 bottom-0 h-32 w-32 rounded-full bg-accent/20 blur-3xl" aria-hidden />
           </div>
         </div>
       </section>
@@ -287,6 +435,61 @@ export default function HomeEn() {
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="space-y-10 rounded-3xl border border-primary/25 bg-[#050816]/85 p-10">
+        <div className="space-y-4 text-left">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">How it works</p>
+          <h2 className="text-2xl font-semibold text-slate-100">The Sora2 operating guide</h2>
+          <p className="max-w-3xl text-sm text-slate-400">
+            Borrowing the playbook approach from ClaudeLog, this four-step map shows how teams move through sora2-ai-tool—from prep to automation—so every handoff stays predictable.
+          </p>
+        </div>
+        <div className="grid gap-8 lg:grid-cols-[2fr_1fr]">
+          <div className="space-y-4">
+            {usageFlows.map((step) => (
+              <article
+                key={step.badge}
+                className="rounded-3xl border border-primary/25 bg-[#070d22]/85 p-6 transition hover:border-primary/40"
+              >
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <span className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">{step.badge}</span>
+                  <h3 className="text-lg font-semibold text-slate-100">{step.title}</h3>
+                </div>
+                <p className="mt-3 text-sm text-slate-300">{step.description}</p>
+                <ul className="mt-4 space-y-2 text-sm text-slate-400">
+                  {step.takeaways.map((item) => (
+                    <li key={item} className="flex items-start gap-2">
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+          <aside className="flex flex-col gap-4 rounded-3xl border border-primary/25 bg-[#070d22]/70 p-6 text-left">
+            <h3 className="text-lg font-semibold text-slate-100">Playbook extras</h3>
+            <p className="text-sm text-slate-400">
+              Drop these into your onboarding doc so every new teammate mirrors the same workflow and skips ad-hoc fixes.
+            </p>
+            <div className="space-y-4">
+              {usagePlaybook.map((item) => (
+                <div key={item.title} className="rounded-2xl border border-primary/20 bg-[#050b1f]/70 p-4">
+                  <h4 className="text-sm font-semibold text-slate-100">{item.title}</h4>
+                  <ul className="mt-3 space-y-2 text-xs text-slate-400">
+                    {item.points.map((point) => (
+                      <li key={point} className="flex items-start gap-2">
+                        <span className="mt-1 h-1 w-1 rounded-full bg-primary" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </aside>
         </div>
       </section>
 

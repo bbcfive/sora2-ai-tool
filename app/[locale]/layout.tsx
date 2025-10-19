@@ -17,8 +17,10 @@ export default function LocaleLayout({
     notFound();
   }
 
+  const direction = locale === 'ar' ? 'rtl' : 'ltr';
+
   return (
-    <div className="flex min-h-screen flex-col bg-background text-slate-100">
+    <div className="flex min-h-screen flex-col bg-background text-slate-100" dir={direction}>
       <SiteHeader locale={locale} />
       <main className="flex-1">{children}</main>
       <SiteFooter locale={locale} />
