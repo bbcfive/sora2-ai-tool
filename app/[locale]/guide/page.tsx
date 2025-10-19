@@ -71,7 +71,7 @@ export function generateMetadata({ params }: { params: { locale: Locale } }): Me
     robots: {
       index: true,
       follow: true,
-      maxImagePreview: 'large'
+      'max-image-preview': 'large'
     },
     other: {
       'max-image-preview': 'large'
