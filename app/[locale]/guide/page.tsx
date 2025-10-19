@@ -35,7 +35,16 @@ const openGraphLocaleMap: Record<Locale, string> = {
 export function generateMetadata({ params }: { params: { locale: Locale } }): Metadata {
   const locale = params.locale;
   const baseMetadata = metadataMap[locale] ?? metadataMap.en;
-  const { title, description, keywords } = baseMetadata;
+  const {
+    title: rawTitle,
+    description: rawDescription,
+    keywords: rawKeywords,
+    openGraph: baseOpenGraph
+  } = baseMetadata;
+
+  const title = rawTitle ?? baseOpenGraph?.title ?? 'Sora2 Prompt Guide';
+  const description = rawDescription ?? baseOpenGraph?.description ?? 'Sora2 prompt, subtitle, and localisation playbook.';
+  const keywords = rawKeywords ?? undefined;
   const url = `${baseUrl}/${locale}/guide`;
 
   return {
